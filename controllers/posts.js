@@ -88,13 +88,17 @@ const deletePost= async (req, res) => {
     const getAllpost=async(req,res)=>{
         try {
             const authUser=await User.findById(req.body.userId);
-            const userPosts = await Post.find({});
-            const selected=
+            const userPosts = await Post.find({userId:authUser._id});
+            function selectFewerProps(show){
+             const {id,title,desc,likes,comments,createdAt} = show;
+            return {id, title,desc,likes,comments,createdAt};
+}
+        const sortedData = userPosts.map(selectFewerProps);
 
-            res.status(200).json(userPosts);
+            res.status(200).json(sortedData)
 
         } catch (error) {
-                res.status(500).json(err);
+                res.status(500).json('Please try again');
 
             
         }
