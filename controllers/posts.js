@@ -66,7 +66,6 @@ const deletePost= async (req, res) => {
                   await post.updateOne({ $push: { comments: req.body.comment } });
                   const indexNum=post.comments.length
                      res.status(200).json(indexNum)
-                     console.log(post.comments[indexNum]);
 
         } catch (error) {
                 res.status(500).json(err);
@@ -89,10 +88,10 @@ const deletePost= async (req, res) => {
     const getAllpost=async(req,res)=>{
         try {
             const authUser=await User.findById(req.body.userId);
-            const userPosts = await Post.find({ userId: authUser._id });
-            const { userId, updatedAt, ...other } = userPosts.likes;
+            const userPosts = await Post.find({});
+            const selected=
 
-            res.status(200).json(other);
+            res.status(200).json(userPosts);
 
         } catch (error) {
                 res.status(500).json(err);

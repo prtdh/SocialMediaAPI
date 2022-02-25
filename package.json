@@ -15,6 +15,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-async-errors": "^3.1.1",
+    "generate-unique-id": "^2.0.1",
     "helmet": "^5.0.2",
     "http-status-codes": "^2.2.0",
     "joi": "^17.6.0",

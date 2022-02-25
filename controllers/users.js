@@ -22,9 +22,9 @@ const followUser=async (req,res)=>{
             const user=await User.findById(req.params.id)
             const currentUser = await User.findById(req.body.userId);
 
-            if (!user.followers.includes(currentUser._id)) {
-                await user.updateOne({$push:{followers:currentUser._id}})
-                await currentUser.updateOne({$push:{following:currentUser._id}})
+            if (!user.followers.includes(req.body.userId)) {
+                await user.updateOne({$push:{followers:req.body.userId}})
+                await currentUser.updateOne({$push:{following:req.params.id}})
                 res.status(StatusCodes.OK).json('User has been followed')
             }
             else{
@@ -49,9 +49,9 @@ const unfollowUser=async (req,res)=>{
             const user=await User.findById(req.params.id)
             const currentUser = await User.findById(req.body.userId);
 
-            if (!user.followers.includes(currentUser._id)) {
-                await user.updateOne({$pull:{followers:currentUser._id}})
-                await currentUser.updateOne({$pull:{following:currentUser._id}})
+            if (user.followers.includes(req.body.userId)) {
+                await user.updateOne({$pull:{followers:req.body.userId}})
+                await currentUser.updateOne({$pull:{following:req.params.id}})
                 res.status(StatusCodes.OK).json('User has been unfollowed')
             }
             else{
